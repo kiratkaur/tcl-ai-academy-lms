@@ -28,6 +28,13 @@ export default function App() {
                  challengeSubmissions: parsed.challengeSubmissions || []
              };
         }
+        
+        // Ensure currentSlideIndex is defined for all existing tracks
+        Object.keys(trackProgress).forEach(key => {
+            if (trackProgress[key].currentSlideIndex === undefined) {
+                trackProgress[key].currentSlideIndex = 0;
+            }
+        });
 
         return {
           ...DEFAULT_PROGRESS,

@@ -22,7 +22,7 @@ export function MainLearningView({ selectedTrack, progress, setProgress, onNavig
   const currentModule = MODULES[trackData.currentModuleIndex];
   const currentLesson = currentModule?.lessons[trackData.currentLessonIndex];
   const slides = currentLesson?.slides || [];
-  const validSlideIndex = Math.min(trackData.currentSlideIndex, Math.max(0, slides.length - 1));
+  const validSlideIndex = Math.min(trackData.currentSlideIndex || 0, Math.max(0, slides.length - 1));
   const currentSlide = slides[validSlideIndex];
   
   const moduleKey = `module${trackData.currentModuleIndex + 1}`;
