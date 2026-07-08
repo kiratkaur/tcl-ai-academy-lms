@@ -24,12 +24,18 @@ export function MainLearningView({ selectedTrack, progress, setProgress, onNavig
   const slides = currentLesson?.slides || [];
   const validSlideIndex = Math.min(trackData.currentSlideIndex, Math.max(0, slides.length - 1));
   const currentSlide = slides[validSlideIndex];
+  
+  const moduleKey = `module${trackData.currentModuleIndex + 1}`;
+  const labData = selectedTrack && TRACK_LAB_DATA[selectedTrack] ? TRACK_LAB_DATA[selectedTrack][moduleKey] : null;
 
   const scrollRef = React.useRef<HTMLDivElement>(null);
+  const [showAnswer, setShowAnswer] = useState(false);
+  
   useEffect(() => {
     if (scrollRef.current) {
         scrollRef.current.scrollTo(0, 0);
     }
+    setShowAnswer(false);
   }, [validSlideIndex, trackData.currentModuleIndex, trackData.currentLessonIndex]);
 
   if (!currentLesson) return <div className="p-8 text-white">Loading content...</div>;
@@ -190,28 +196,77 @@ export function MainLearningView({ selectedTrack, progress, setProgress, onNavig
                   <div className="prose prose-invert max-w-none">
                       <ReactMarkdown remarkPlugins={[remarkGfm]}>{currentSlide.body}</ReactMarkdown>
                       
-                      {currentSlide.type === 'exercise' && selectedTrack && TRACK_LAB_DATA[selectedTrack]?.module1 && (
+                      {currentSlide.type === 'exercise' && selectedTrack && labData && (
                           <div className="mt-8 bg-surface-800 border border-border-glass rounded-xl p-6">
                               <h3 className="text-lg font-bold text-accent-cyan mb-4">Track Data Pack: {selectedTrack}</h3>
                               <div className="space-y-4">
                                   <div>
                                       <h4 className="text-sm font-bold text-text-muted uppercase tracking-wider mb-2">Source Document</h4>
                                       <div className="bg-surface-900 p-4 rounded-lg border border-border-glass font-mono text-sm text-text-secondary whitespace-pre-wrap">
-                                          {TRACK_LAB_DATA[selectedTrack].module1.sourceData}
+                                          {labData.sourceData}
                                       </div>
                                   </div>
-                                  <div>
-                                      <h4 className="text-sm font-bold text-text-muted uppercase tracking-wider mb-2">Strategic Baseline Prompt</h4>
-                                      <div className="bg-surface-900 p-4 rounded-lg border border-accent-primary/30 font-mono text-sm text-accent-light whitespace-pre-wrap relative group">
-                                          <button 
-                                            className="absolute top-2 right-2 text-xs bg-surface-700 hover:bg-surface-600 px-2 py-1 rounded transition-colors opacity-0 group-hover:opacity-100"
-                                            onClick={() => navigator.clipboard.writeText(TRACK_LAB_DATA[selectedTrack].module1.promptTemplate)}
-                                          >
-                                            Copy
-                                          </button>
-                                          {TRACK_LAB_DATA[selectedTrack].module1.promptTemplate}
+                                  
+                                  {trackData.currentModuleIndex === 1 ? (
+                                      <>
+                                          <div>
+                                              <h4 className="text-sm font-bold text-text-muted uppercase tracking-wider mb-2">Your Suggested Prompt</h4>
+                                              <textarea 
+                                                  className="w-full bg-surface-900 p-4 rounded-lg border border-border-glass font-mono text-sm text-white focus:outline-none focus:border-accent-cyan resize-y min-h-[120px]"
+                                                  placeholder="Type your prompt using the TCL Prompting Equation (Role, Context, Task, Format, Constraints)..."
+                                              ></textarea>
+                                          </div>
+                                          
+                                          {!showAnswer ? (
+                                              <button 
+                                                  onClick={() => setShowAnswer(true)}
+                                                  className="btn-primary py-2 px-4 text-sm font-bold mt-2"
+                                              >
+                                                  Show Instructor Answer
+                                              </button>
+                                          ) : (
+                                              <div className="animate-fade-in space-y-4">
+                                                  <div>
+                                                      <h4 className="text-sm font-bold text-emerald-400 uppercase tracking-wider mb-2 flex items-center gap-2">
+                                                          <span>✓</span> Instructor's Suggested Prompt
+                                                      </h4>
+                                                      <div className="bg-surface-900 p-4 rounded-lg border border-emerald-500/30 font-mono text-sm text-emerald-300 whitespace-pre-wrap relative group">
+                                                          <button 
+                                                            className="absolute top-2 right-2 text-xs bg-surface-700 hover:bg-surface-600 px-2 py-1 rounded transition-colors opacity-0 group-hover:opacity-100"
+                                                            onClick={() => navigator.clipboard.writeText(labData.promptTemplate)}
+                                                          >
+                                                            Copy
+                                                          </button>
+                                                          {labData.promptTemplate}
+                                                      </div>
+                                                  </div>
+                                                  {labData.expectedOutput && (
+                                                      <div>
+                                                          <h4 className="text-sm font-bold text-emerald-400 uppercase tracking-wider mb-2 flex items-center gap-2">
+                                                              <span>✓</span> Instructor's Output Rules
+                                                          </h4>
+                                                          <div className="bg-surface-900 p-4 rounded-lg border border-emerald-500/30 font-mono text-sm text-emerald-300 whitespace-pre-wrap">
+                                                              {labData.expectedOutput}
+                                                          </div>
+                                                      </div>
+                                                  )}
+                                              </div>
+                                          )}
+                                      </>
+                                  ) : (
+                                      <div>
+                                          <h4 className="text-sm font-bold text-text-muted uppercase tracking-wider mb-2">Strategic Baseline Prompt</h4>
+                                          <div className="bg-surface-900 p-4 rounded-lg border border-accent-primary/30 font-mono text-sm text-accent-light whitespace-pre-wrap relative group">
+                                              <button 
+                                                className="absolute top-2 right-2 text-xs bg-surface-700 hover:bg-surface-600 px-2 py-1 rounded transition-colors opacity-0 group-hover:opacity-100"
+                                                onClick={() => navigator.clipboard.writeText(labData.promptTemplate)}
+                                              >
+                                                Copy
+                                              </button>
+                                              {labData.promptTemplate}
+                                          </div>
                                       </div>
-                                  </div>
+                                  )}
                               </div>
                           </div>
                       )}
