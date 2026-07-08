@@ -273,3 +273,38 @@ body {
     @apply text-accent-light underline decoration-accent-primary/30 hover:decoration-accent-primary transition-colors;
   }
 }
+
+/* Custom Scrollbars */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-surface-500);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-surface-400);
+}
+::-webkit-scrollbar-corner {
+  background: transparent;
+}
+
+/* Base resets */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-surface-500) transparent;
+}
+
+/* Mesh gradient animation class */
+.mesh-bg {
+  background-size: 200% 200%;
+  animation: gradient-shift 15s ease infinite;
+  background-image: radial-gradient(at 0% 0%, rgba(99, 102, 241, 0.15) 0px, transparent 50%),
+                    radial-gradient(at 100% 0%, rgba(34, 211, 238, 0.1) 0px, transparent 50%),
+                    radial-gradient(at 100% 100%, rgba(52, 211, 153, 0.1) 0px, transparent 50%),
+                    radial-gradient(at 0% 100%, rgba(139, 92, 246, 0.15) 0px, transparent 50%);
+}

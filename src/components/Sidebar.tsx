@@ -16,7 +16,6 @@ export function Sidebar({ selectedTrack, onSelectTrack, currentPage, onNavigate,
   const navItems: { id: PageView; label: string; icon: string }[] = [
     { id: 'dashboard', label: 'Overview', icon: '⊞' },
     { id: 'learning', label: 'Syllabus', icon: '≡' },
-    { id: 'assessments', label: 'Certification', icon: '★' },
     { id: 'challenge', label: '30-Day Challenge', icon: '↗' },
     { id: 'pii-scanner', label: 'PII Pre-Flight', icon: '◎' },
   ];

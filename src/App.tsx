@@ -5,7 +5,6 @@ import { TrackSelector } from './components/TrackSelector';
 import { MainLearningView } from './components/MainLearningView';
 import { PIIScanner } from './components/PIIScanner';
 import { ChallengePortal } from './components/ChallengePortal';
-import { CertificationWallet } from './components/CertificationWallet';
 import { TrackId, PageView, UserProgress, DEFAULT_PROGRESS } from './types';
 
 import { Dashboard } from './components/Dashboard';
@@ -100,8 +99,6 @@ export default function App() {
             onNavigate={setCurrentPage}
           />
         );
-      case 'assessments':
-        return <CertificationWallet progress={progress} onNavigate={setCurrentPage} />;
       case 'challenge':
         return <ChallengePortal progress={progress} setProgress={setProgress} />;
       case 'pii-scanner':
@@ -116,7 +113,7 @@ export default function App() {
       <TopNav currentPage={currentPage} onNavigate={setCurrentPage} />
 
       <div className="flex flex-1 overflow-hidden relative">
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-indigo-900/20 via-surface-900 to-surface-900 -z-10"></div>
+        <div className="absolute inset-0 mesh-bg -z-10"></div>
         
         <Sidebar 
           selectedTrack={progress.selectedTrack} 

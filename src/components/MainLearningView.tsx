@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import { MODULES } from '../courseContent';
@@ -19,13 +20,17 @@ export function MainLearningView({ selectedTrack, progress, setProgress, onNavig
       return <div className="p-8 text-white">Initializing track data...</div>;
   }
 
-  const currentModule = MODULES[trackData.currentModuleIndex];
-  const currentLesson = currentModule?.lessons[trackData.currentLessonIndex];
+  const validModuleIndex = Math.min(trackData.currentModuleIndex || 0, Math.max(0, MODULES.length - 1));
+  const currentModule = MODULES[validModuleIndex];
+  
+  const validLessonIndex = Math.min(trackData.currentLessonIndex || 0, Math.max(0, (currentModule?.lessons?.length || 0) - 1));
+  const currentLesson = currentModule?.lessons[validLessonIndex];
+  
   const slides = currentLesson?.slides || [];
   const validSlideIndex = Math.min(trackData.currentSlideIndex || 0, Math.max(0, slides.length - 1));
   const currentSlide = slides[validSlideIndex];
   
-  const moduleKey = `module${trackData.currentModuleIndex + 1}`;
+  const moduleKey = `module${validModuleIndex + 1}`;
   const labData = selectedTrack && TRACK_LAB_DATA[selectedTrack] ? TRACK_LAB_DATA[selectedTrack][moduleKey] : null;
 
   const scrollRef = React.useRef<HTMLDivElement>(null);
@@ -118,8 +123,8 @@ export function MainLearningView({ selectedTrack, progress, setProgress, onNavig
   }, [handleNext, handlePrev]);
 
   const isLastSlideOfCourse = 
-    trackData.currentModuleIndex === MODULES.length - 1 &&
-    trackData.currentLessonIndex === currentModule.lessons.length - 1 &&
+    validModuleIndex === MODULES.length - 1 &&
+    validLessonIndex === currentModule.lessons.length - 1 &&
     validSlideIndex === slides.length - 1;
 
   return (
@@ -129,8 +134,8 @@ export function MainLearningView({ selectedTrack, progress, setProgress, onNavig
         {/* Macro Level (Modules) Tracker */}
         <div className="flex items-center gap-2">
             {MODULES.map((mod, idx) => {
-                const isCompleted = trackData.currentModuleIndex > idx;
-                const isCurrent = trackData.currentModuleIndex === idx;
+                const isCompleted = validModuleIndex > idx;
+                const isCurrent = validModuleIndex === idx;
                 
                 return (
                     <React.Fragment key={mod.id}>
@@ -174,8 +179,16 @@ export function MainLearningView({ selectedTrack, progress, setProgress, onNavig
 
       {/* Slide Content */}
       <div ref={scrollRef} className="flex-1 overflow-y-auto p-8 flex justify-center">
-        <div className="max-w-4xl w-full">
-            <div className="glass-card rounded-2xl p-8 min-h-[400px] animate-fade-in relative overflow-hidden">
+        <AnimatePresence mode="wait">
+            <motion.div 
+                key={`${validModuleIndex}-${validLessonIndex}-${validSlideIndex}`}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -20 }}
+                transition={{ duration: 0.3 }}
+                className="max-w-4xl w-full"
+            >
+                <div className="glass-card rounded-2xl p-8 min-h-[400px] relative overflow-hidden">
                 <div className="absolute top-0 right-0 p-4 opacity-10 pointer-events-none">
                     <span className="text-8xl font-black">0{validSlideIndex + 1}</span>
                 </div>
@@ -207,7 +220,7 @@ export function MainLearningView({ selectedTrack, progress, setProgress, onNavig
                                       </div>
                                   </div>
                                   
-                                  {trackData.currentModuleIndex === 1 ? (
+                                  {validModuleIndex === 1 ? (
                                       <>
                                           <div>
                                               <h4 className="text-sm font-bold text-text-muted uppercase tracking-wider mb-2">Your Suggested Prompt</h4>
@@ -280,7 +293,7 @@ export function MainLearningView({ selectedTrack, progress, setProgress, onNavig
                     onClick={handlePrev}
                     disabled={trackData.currentModuleIndex === 0 && trackData.currentLessonIndex === 0 && validSlideIndex === 0}
                     aria-label="Previous Slide"
-                    className="px-6 py-3 rounded-xl font-semibold text-sm transition-colors border border-border-glass text-text-secondary hover:text-white hover:bg-white/5 disabled:opacity-30 disabled:cursor-not-allowed focus:outline-none focus:ring-2 focus:ring-accent-cyan"
+                    className="px-6 py-3 rounded-xl font-semibold text-sm transition-all border border-border-glass text-text-secondary hover:text-white hover:bg-white/5 hover:scale-105 active:scale-95 disabled:opacity-30 disabled:cursor-not-allowed focus:outline-none focus:ring-2 focus:ring-accent-cyan"
                 >
                     Previous
                 </button>
@@ -288,13 +301,14 @@ export function MainLearningView({ selectedTrack, progress, setProgress, onNavig
                 <button 
                     onClick={handleNext}
                     aria-label={isLastSlideOfCourse ? 'Finish Course' : validSlideIndex === slides.length - 1 ? 'Complete Lesson' : 'Next Slide'}
-                    className="btn-primary flex items-center gap-2 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-surface-900"
+                    className="btn-primary flex items-center gap-2 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-surface-900 transition-all hover:scale-105 active:scale-95 hover:shadow-[0_0_20px_rgba(99,102,241,0.6)]"
                 >
                     {isLastSlideOfCourse ? 'Finish Course' : validSlideIndex === slides.length - 1 ? 'Complete Lesson' : 'Next Slide'}
                     {!isLastSlideOfCourse && <span>→</span>}
                 </button>
             </div>
-        </div>
+        </motion.div>
+        </AnimatePresence>
       </div>
     </div>
   );

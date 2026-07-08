@@ -1,4 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import Confetti from 'react-confetti';
+import { motion } from 'framer-motion';
 import { UserProgress, ChallengeSubmission } from '../types';
 
 interface ChallengePortalProps {
@@ -12,10 +14,19 @@ export function ChallengePortal({ progress, setProgress }: ChallengePortalProps)
   const [output, setOutput] = useState('');
   
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [showConfetti, setShowConfetti] = useState(false);
 
   const trackData = progress.selectedTrack ? progress.trackProgress[progress.selectedTrack] : null;
   const hasSubmitted = trackData ? trackData.challengeSubmissions.length > 0 : false;
   const latestSubmission = hasSubmitted && trackData ? trackData.challengeSubmissions[0] : null;
+
+  useEffect(() => {
+    if (hasSubmitted) {
+      setShowConfetti(true);
+      const timer = setTimeout(() => setShowConfetti(false), 5000);
+      return () => clearTimeout(timer);
+    }
+  }, [hasSubmitted]);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -48,11 +59,16 @@ export function ChallengePortal({ progress, setProgress }: ChallengePortalProps)
 
   if (hasSubmitted) {
     return (
-      <div className="flex-1 overflow-y-auto p-8 flex items-center justify-center">
-        <div className="max-w-2xl w-full text-center space-y-8 animate-fade-in">
+      <motion.div 
+        initial={{ opacity: 0, scale: 0.95 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 0.5, type: "spring", bounce: 0.4 }}
+        className="flex-1 overflow-y-auto p-8 flex items-center justify-center relative"
+      >
+        {showConfetti && <Confetti width={window.innerWidth} height={window.innerHeight} recycle={false} numberOfPieces={500} />}
+        <div className="max-w-2xl w-full text-center space-y-8 relative z-10">
           <div className="inline-block relative">
              <div className="absolute inset-0 bg-accent-cyan/20 blur-3xl rounded-full"></div>
-             {/* Note: I don't know the exact image name, so I'll render the CSS fallback immediately */}
              <div className="w-48 h-48 mx-auto bg-gradient-to-br from-yellow-700 via-yellow-500 to-yellow-900 rounded-full flex items-center justify-center border-4 border-yellow-300/50 shadow-[0_0_50px_rgba(234,179,8,0.3)]">
                 <span className="text-4xl font-black text-yellow-100 uppercase tracking-widest text-center leading-tight">Bronze<br/>Certified</span>
              </div>
@@ -79,7 +95,7 @@ export function ChallengePortal({ progress, setProgress }: ChallengePortalProps)
              </div>
           </div>
         </div>
-      </div>
+      </motion.div>
     );
   }
 
