@@ -1,12 +1,12 @@
 import React from 'react';
-import { UserProgress, TrackId } from '../types';
+import { UserProgress, TrackId, PageView } from '../types';
 import { MODULES, TRACKS } from '../data';
 import { Radar, RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, ResponsiveContainer } from 'recharts';
 import { motion } from 'framer-motion';
 
 interface DashboardProps {
   progress: UserProgress;
-  onNavigate: (page: string) => void;
+  onNavigate: (page: PageView) => void;
 }
 
 export function Dashboard({ progress, onNavigate }: DashboardProps) {
