@@ -22,6 +22,12 @@ export const TRACK_LAB_DATA: Record<string, Record<string, any>> = {
       promptTemplate: "Act as a corporate strategy director. Analyze this expansion review and extract: 1) The top 3 financial bottlenecks, 2) Competitor movements in Eastern China, and 3) A scannable bulleted list of immediate decision points for the COO. Omit conversational preamble.",
       followUpPrompt: "Expand on point #2. What specific market share percentages are quoted for our direct competitors?",
       expectedOutput: "The output must be a clean list without introductory pleasantries, clearly breaking down the three financial bottlenecks (Lease spikes, Credit constraints, Currency friction), identifying Competitor X's 8.4% footprint expansion / 3.2% market share capture, and presenting clear, actionable steps for the COO regarding distributor restructuring."
+    },
+    module2: {
+      objective: "Advanced Skeletons Lab",
+      sourceData: "Vertical integration operates 25 separate R&D installations across core territories. However, regional logistics offices are tracking freight quotes using loose email chains rather than database logs. High eco-friendly packaging demand throughout luxury cosmetics opens an immediate avenue. Changing shipping rates represent a constant threat. Digital capabilities gap in mid-level store operations managers hinders retail update speed.",
+      promptTemplate: "Role: Senior Enterprise Management Consultant.\nContext: You are evaluating TCL's operational readiness based on these notes.\nTask: Construct a detailed SWOT matrix.\nFormat: Output as a clean markdown table with distinct rows for Strengths, Weaknesses, Opportunities, and Threats.\nConstraints: Limit each quadrant to 3 highly specific points based *only* on the provided text. Do not invent outside trends.",
+      expectedOutput: "The AI should output a clean markdown table divided into Strengths (e.g. 25 R&D installations), Weaknesses (email chain logs, digital gap), Opportunities (eco-friendly demand), and Threats (changing shipping rates). Limited to 3 points per quadrant based exclusively on the text provided."
     }
   },
   'T2': {
@@ -31,6 +37,12 @@ export const TRACK_LAB_DATA: Record<string, Record<string, any>> = {
       promptTemplate: "Act as a corporate collections manager at TCL. Draft three distinct email templates for a retail client who is 60 days overdue on an invoice of $45,000 HKD. Tone 1: Polite reminder. Tone 2: Firm operational request. Tone 3: Formal escalation notice. Ensure placeholders like [Client Name] are clearly marked.",
       followUpPrompt: "Rewrite Tone 2 to match the business etiquette of a traditional enterprise client based in Shanghai, using professional Simplified Chinese phrasing.",
       expectedOutput: "The output must display three distinct, professional templates with clear formatting brackets (e.g., [Client Contact Name]). Tone 1 should focus on a friendly reminder; Tone 2 should focus on a firm, operational next step; Tone 3 must state the legal and formal escalation risks clearly. The Simplified Chinese variant must use formal business vocabulary (e.g., 贵司, 抱歉打扰, 恳请协助) suitable for corporate communications."
+    },
+    module2: {
+      objective: "Advanced Skeletons Lab",
+      sourceData: "#INV-2026-X01 | EXPECTED: $14,500.00 HKD | RECEIVED: $14,500.00 HKD | STATUS: MATCHED\n#INV-2026-X02 | EXPECTED: $22,800.00 HKD | RECEIVED: $22,000.00 HKD | STATUS: PENDING\n#INV-2026-X04 | EXPECTED: $11,250.00 HKD | RECEIVED: $11,520.00 HKD | STATUS: OVERPAID",
+      promptTemplate: "Role: Senior Corporate Forensic Auditor.\nContext: Reviewing a monthly ledger export for discrepancy flags.\nTask: Locate any line items where the clearing amount does not match the invoice baseline.\nConstraints: Think step-by-step. Show your mathematical derivation before finalizing the discrepancy column. Exclude any client personal data fields.\nFormat: Output as a markdown table showing [Invoice ID], [Expected Amount], [Actual Amount], and [Variance Log].",
+      expectedOutput: "The AI should demonstrate chain-of-thought calculation for the discrepancies in X02 ($800 underpaid) and X04 ($270 overpaid) before producing the final markdown variance table."
     }
   },
   'T3': {
@@ -39,6 +51,12 @@ export const TRACK_LAB_DATA: Record<string, Record<string, any>> = {
       sourceData: "SALES REPRESENTATIVE ACCOUNT INTERACTION LOGS\nACCOUNT: METRO COSMETICS REGIONAL DEALERS\n\nJANUARY 14, 2026 - REP MEMO:\nMet with purchase manager at Metro Cosmetics. They expressed significant frustration over the holiday delivery cycle. Claimed the shipment of premium anti-aging serums arrived 5 days late, causing stockouts across three of their primary Hong Kong storefronts.\n\nMARCH 03, 2026 - EMAIL FOLLOW-UP SUMMARY:\nMetro Cosmetics requested updated wholesale pricing catalogs for our new organic botanical skincare line. They think their premium loyalty tier demographic would buy the organic day creams quickly if they can secure an exclusive regional window.\n\nMAY 12, 2026 - PHONE LOG:\nCall from Metro account team. Discussion regarding minimum order volumes (MOV). They are pushing back against the new corporate MOV limits, stating that shipping delays make them hesitant to commit to larger upfront capital allocations. However, they explicitly noted that if TCL can guarantee a fixed 48-hour delivery SLA window, they would be willing to expand their baseline order values by up to 20% across all product lines.",
       promptTemplate: "Analyze this client communication history. Provide a scannable summary covering: 1) The client's primary recurring complaints regarding delivery lead times, 2) The specific product lines they expressed interest in expanding, and 3) Three tailored recommendations for our sales rep to open the negotiation with.",
       expectedOutput: "The AI must produce a summary highlighting: 1) The late holiday delivery window causing retail stockouts, 2) The explicit interest in expanding the organic botanical skincare catalog, and 3) Practical negotiation tactics (e.g., using the requested 48-hour SLA window as leverage to secure an increased commitment on order values)."
+    },
+    module2: {
+      objective: "Advanced Skeletons Lab",
+      sourceData: "Product: Eco-Glow Amenities. Formula: Biodegradable organic oat bran extract, zero synthetic additives. Stable up to 24 months in temperatures up to 40C. Logistics: 90 days safety stock inventory buffer held at hubs to protect from ocean transport friction.",
+      promptTemplate: "Role: B2B Sales Consultant.\nContext: Pitching premium brand access to regional hotel chains.\nTask: Translate the attached technical specification sheet into a professional 3-paragraph sales pitch.\nFormat: Paragraph 1 = Value Hook, Paragraph 2 = Quality Advantage, Paragraph 3 = Commercial Terms.\nConstraints: Emphasize margin safety and supply consistency. Avoid overly aggressive marketing language.",
+      expectedOutput: "The AI should output exactly three paragraphs fulfilling the format constraints. It should smoothly weave the 24-month stability and 90-day stock buffers into a pitch emphasizing safety and reliability without aggressive jargon."
     }
   },
   'T4': {
@@ -48,6 +66,12 @@ export const TRACK_LAB_DATA: Record<string, Record<string, any>> = {
       promptTemplate: "Act as a senior creative copywriter. Review these product specifications. Generate 10 distinct marketing headlines targeting luxury consumers in Hong Kong. 3 must focus on scientific efficacy, 3 on lifestyle prestige, and 4 must be short hooks optimized for mobile social media channels.",
       followUpPrompt: "For the chosen two headlines, write a 150-word body copy variant for an email newsletter targeting our top-tier CRM loyalty members.",
       expectedOutput: "The output must contain exactly 10 distinct headlines properly divided into the three requested categories (Scientific, Lifestyle, Mobile). The follow-up email variant must maintain an upscale, inviting tone suited for high-tier loyalty members, weaving the technical specifications (2.5% Hyaluronic Acid, Marine Collagen) into a polished, luxury marketing message."
+    },
+    module2: {
+      objective: "Advanced Skeletons Lab",
+      sourceData: "Project: Summit Luxury Beauty Revelation. Alpine white tea extracts restore skin radiance. Limited opportunity: Diamond CRM members receive a curated travel presentation kit with every signature purchase. Copy must feel elite and selective.",
+      promptTemplate: "Role: Brand Custodian & Head Copywriter.\nContext: Writing social media copy for our premium cosmetics line.\nTask: Generate 5 promotional captions for an upscale demographic.\nConstraints: Do *not* use words like 'cheap', 'discount', or 'bargain'. Avoid exclamation marks. Maintain an elegant, sophisticated tone.",
+      expectedOutput: "The AI should generate 5 captions strictly omitting exclamation marks and discount wording, focusing on the elite and selective nature of the curated travel kit."
     }
   },
   'T5': {
@@ -56,6 +80,12 @@ export const TRACK_LAB_DATA: Record<string, Record<string, any>> = {
       sourceData: "TCL RETAIL OPERATIONS DIRECTIVE — MEMO #OPER-883-2026\nFROM: VISUAL MERCHANDISING HQ — HONG KONG\nTO: ALL TIER-1 REGIONAL STORE MANAGER PARKS\n\nSUBJECT: REGIONAL ADJUSTMENTS TO END-CAP SHELVING LAYOUTS AND RE-PRICING MATRIX\n\nEffective upon close of operational hours tonight (June 30, 2026, at 22:00), all retail teams must execute a comprehensive structural realignment of the primary skincare end-cap display bay (Zone Alpha). The top two product shelves must be stripped of legacy inventory and transitioned to feature the HydraGlow Premium Serum line exclusively. Display alignment must maintain a clear three-facing product array configuration.\n\nConcurrently, regional pricing modifications take effect immediately at store opening tomorrow morning. The legacy price tags ($520 HKD) must be removed and replaced with the updated seasonal standard tags ($580 HKD). Floor team leaders must manually scan every updated display tag using the handheld ERP terminal to verify that the digital point-of-sale system registers the updated value prior to opening doors.\n\nIn anticipation of consumer queries regarding the $60 HKD price adjustment, floor staff must be briefed to present an active value message. Staff are instructed to explain that the price adjustment reflects the addition of the new micro-encapsulated marine peptide matrix, which delivers double the active clinical efficacy compared to last season's formula base. Avoid defensive language; transition directly to discussing formula benefits.",
       promptTemplate: "Act as a retail store operations manager. Translate this corporate directive into a clear, bulleted announcement for floor staff to read during morning huddles. It must strictly outline: 1) What changes on the shelves tonight, 2) How the new price tags must be verified, and 3) What to say if a customer asks about the price adjustment. Keep the language simple, direct, and action-oriented.",
       expectedOutput: "The AI must transform the wordy memo into a scannable morning huddle guide. It should feature action points with clear bullet markings: what must be changed on the shelves at 22:00 tonight, how to scan price tags to verify the $580 HKD pricing before opening doors, and a direct response script for handling customer pricing questions politely and effectively."
+    },
+    module2: {
+      objective: "Advanced Skeletons Lab",
+      sourceData: "Formulation: Low-Molecular-Weight Sodium Hyaluronate (2.5% Absolute Matrix), Hydrolyzed Marine Elastin, Niacinamide Vitamin B3 active block (4.0% Purity Tally).",
+      promptTemplate: "Role: Expert Retail Beauty Educator.\nContext: Floor staff require conversational talking points for customers.\nTask: Translate this complex chemical ingredient listing into 3 clear, consumer-friendly benefits.\nConstraints: Explain scientific terms simply (e.g., explain what hyaluronic acid does). Keep each point under 2 sentences. Do not make unverified medical claims.",
+      expectedOutput: "The AI should present 3 clear points explaining the active ingredients in non-medical, consumer-friendly terms without exceeding the strict 2-sentence-per-point limit."
     }
   },
   'T6': {
@@ -64,6 +94,12 @@ export const TRACK_LAB_DATA: Record<string, Record<string, any>> = {
       sourceData: "EMAIL THREAD LOG — SHIPMENT TRACKING NUMBER #TCL-MUM-99281\nCONFIDENTIAL — SUPPLY CHAIN INTRA-NET\n\nFROM: Rajesh Kumar (Mumbai Broker Operations)\nTO: Sarah Jenkins (TCL Global Shipping Coordinator)\nSENT: June 28, 2026, 09:14 IST\nSarah, update from the customs floor here at Mumbai Port. Container #TCL-99281 containing our regional raw botanical shipments is currently held at Terminal 3 holding yard. The customs inspector flagged a structural mismatch in the Certificate of Origin documentation supplied by the European processing node. The paperwork shows a mismatch in chemical variant categorization tags. We are waiting on corrected documents. Estimated clearance window is currently July 4, assuming papers are uploaded today.\n\nFROM: Sarah Jenkins (TCL Global Shipping Coordinator)\nTO: Dev Patel (Mumbai Warehouse Manager)\nSENT: June 28, 2026, 11:30 IST\nDev, see the note below from Rajesh. The container is stuck at Mumbai Port Terminal 3 as of June 28 due to documentation clearance issues. We need to hold space in the climate-controlled warehouse zone to receive these botanicals as soon as they clear on July 4. Please adjust the incoming receiving dock schedules to prevent carrier bottlenecking.",
       promptTemplate: "Act as a logistics director. Parse this email thread and create a structured update table with the following columns: Incident Date, Current Location of Goods, Document Root Cause of Delay, and Estimated Clear Date. Below the table, list the next 2 logical steps our warehouse manager needs to take to prepare for arrival.",
       expectedOutput: "The output must feature a clean markdown table matching the requested columns exactly. Below the table, it must list two clear warehouse action items: holding space in the climate-controlled zone and adjusting incoming dock schedules to prevent bottlenecks."
+    },
+    module2: {
+      objective: "Advanced Skeletons Lab",
+      sourceData: "Rotterdam facility into Hong Kong terminal port: Base ocean freight cost for 40ft high-cube is $3,200 USD. Terminal handling charge at origin is $280 USD. Peak season congestion surcharge is $450 USD. Insurance costs unspecified. Documentation preparation fee is $120.",
+      promptTemplate: "Role: Global Procurement Logistics Analyst.\nContext: Comparing competitive shipping options.\nTask: Extract all core fee components from this email.\nFormat: Output as a markdown table listing [Fee Name], [Currency], [Base Cost], and [Applicable Surcharges].\nConstraints: If a cost component is unspecified, mark it as 'Not Disclosed'. Do not pool loose charges together; keep them separate.",
+      expectedOutput: "The AI should output a highly structured markdown matrix keeping every cost distinct, specifically labeling the Insurance cost as 'Not Disclosed' due to the constraints."
     }
   },
   'T7': {
@@ -72,6 +108,12 @@ export const TRACK_LAB_DATA: Record<string, Record<string, any>> = {
       sourceData: "TCL HUMAN RESOURCES — ARCHIVAL ROLES DESCRIPTION (2018)\nPOSITION: REGIONAL SUPPLY CHAIN CLERK — LEVEL 2\n\nROLE OVERVIEW:\nThe candidate will be responsible for managing regional freight files across local office teams. Primary day-to-day duties involve receiving hard-copy freight documentation, organizing physical filing cabinets, entering data manually into standard local spreadsheets, and answering incoming vendor routing telephone calls.\n\nCOMPLIANCE & LEGAL EQUALITY CLAUSE (DO NOT EDIT):\nTCL Corporation provides equal employment opportunities to all employees and applicants for employment without regard to race, color, religion, sex, national origin, age, disability, genetics, or partner brand affiliations. TCL strictly complies with all regional labor laws, workplace safety acts, and corporate non-discrimination frameworks across all operational territories.",
       promptTemplate: "Review this 2018 job description. Rewrite it to update the responsibilities for a modern, digital-first workplace. Inject specific competencies regarding digital tool literacy, data-driven file management, and familiarity with collaborative software environments. Maintain all original corporate clauses relating to equal opportunity and workplace compliance verbatim.",
       expectedOutput: "The output must present a modernized job description that replaces outdated tasks (like physical filing and manual data entry) with modern requirements, such as digital file management, collaborative software proficiency, and data accuracy tracking. The compliance and legal equality clause must be preserved word-for-word in its own section at the bottom."
+    },
+    module2: {
+      objective: "Advanced Skeletons Lab",
+      sourceData: "Retail Sector Manager Criteria: 1) Data-Driven Inventory Remediation via ERP dashboards. 2) Cross-Cultural Team Mentorship across diverse demographics. 3) Rapid Crisis Resolution for localized pricing errors.",
+      promptTemplate: "Role: Senior Talent Acquisition Director.\nContext: Designing a structured candidate evaluation rubric.\nTask: Create an interview scorecard containing 3 behavioral interview questions that target our core competencies.\nFormat: Provide the question, followed by a bulleted checklist of what a 'Good Response' looks like, and what a 'Red Flag Response' looks like.\nConstraints: Keep questions compliant with regional labor guidelines.",
+      expectedOutput: "The AI should build 3 behavioral questions mapped directly to the competencies, presenting clear Good Response and Red Flag guidelines in the specified bullet format."
     }
   },
   'T8': {
@@ -80,6 +122,12 @@ export const TRACK_LAB_DATA: Record<string, Record<string, any>> = {
       sourceData: "TCL IT SUPPORT SERVICE QUEUE LOGS — UNCLASSIFIED DUMP\nTIMESTAMP RUN: JUNE 30, 2026\n\nTICKET_ID #001: The primary network printer on Floor 4 is jamming continuously and won't process incoming print queues for the finance team.\nTICKET_ID #002: I forgot my access password for the main ERP system and cannot bill regional clients this morning.\nTICKET_ID #003: I received an unexpected email asking me to click an external link to verify my corporate credentials immediately.\nTICKET_ID #004: The local spellcheck tool inside my corporate word processor is not responding after the recent update.\nTICKET_ID #005: Warehouse terminal 3 crashed with a blue screen error, blocking the local shipping team from printing outbound product labels.",
       promptTemplate: "Act as a first-line IT triage system. Review these 30 unclassified user requests. Classify each ticket into one of four strict categories: [Hardware], [ERP Access], [Network Security], or [General Software]. Output the result as a markdown table sorted by category, with an added column for Priority (High/Medium/Low) based on whether the issue blocks a whole team or an individual user.",
       expectedOutput: "The output must be structured as a clean markdown table sorted by category group, indicating priority properly (e.g. #003 is Network Security/High, #001 is Hardware/Medium-High, #004 is General Software/Low)."
+    },
+    module2: {
+      objective: "Advanced Skeletons Lab",
+      sourceData: "def process_tcl_transaction(raw_csv_row):\n    data_fields = raw_csv_row.strip().split(',')\n    if len(data_fields) < 4: return {\"status\": \"ERROR\"}\n    tx_id = data_fields[0]\n    expected_val = float(data_fields[1])\n    actual_val = float(data_fields[2])\n    if data_fields[3] == \"USD\":\n        expected_val *= 7.8; actual_val *= 7.8\n    variance = actual_val - expected_val\n    return {\"invoice_id\": tx_id, \"variance_hkd\": round(variance, 2)}",
+      promptTemplate: "Role: Lead Systems Architect.\nContext: Documenting legacy transaction parsing code.\nTask: Insert clean, inline commentary explaining what each code block performs.\nFormat: Provide the fully documented script code block, followed by a Markdown technical reference section detailing: Inputs, Outputs, and Error Handling exceptions.\nConstraints: Use standard documentation formatting rules.",
+      expectedOutput: "The AI should rewrite the script with inline comments, followed by a separate Markdown section strictly outlining the required technical reference fields."
     }
   }
 };
